@@ -15,14 +15,43 @@ node * createNode(int data){
 	return new;
 }
 
-//adding a node at the end
-void addNode(node* head,node* new){
-	if(head == NULL) return;
-	while(head->next != NULL)
-		head = head->next;
-	head->next = new;
+//adding in sorted order
+void addSorted(node** head,node* new){
+	if((*head) == NULL || new->data < (*head)->data){
+		new->next = (*head);
+		(*head) = new;
+		return;
+	}
+	node* prev;
+	node* temp = (*head)->next;
+	while(temp != NULL && new->data > temp->data){
+		prev = temp;
+		temp = temp->next;
+	}
+	new->next = prev->next;
+	prev->next = new;
 }
 
+//adding a node at the end
+void addNode(node** head,node* new){
+	if((*head) == NULL){
+		(*head) = new;
+	 	return;
+	};
+	while((*head)->next != NULL)
+		(*head) = (*head)->next;
+	(*head)->next = new;
+}
+
+//adding node at front
+void addNodeFront(node** head,node* new){
+	if((*head) == NULL){
+	 	(*head) = new;
+	 	return;
+	}
+	new->next = (*head);
+	(*head) = new;	
+}
 
 //deleting a node 
 void delete(node *head,int data){
@@ -47,14 +76,17 @@ void traverse(node* head){
 }
 
 int main(){
-	node* head = createNode(5);
-	node* second = createNode(10);
-	addNode(head,second);
-	node* third = createNode(15);
-	addNode(head,third);
+	node* head = NULL;
+	node* first = createNode(10);
+	addSorted(&head,first);
+	node* second = createNode(1);
+	addSorted(&head,second);
+	node* third = createNode(0);
+	addSorted(&head,third);
 	node* fourth = createNode(20);
-	addNode(head,fourth);
-	delete(head,10);
+	addSorted(&head,fourth);
+	node* fifth = createNode(5);
+	addSorted(&head,fifth);
 	traverse(head);
 	return 0;
 }
