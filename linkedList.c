@@ -65,6 +65,23 @@ void delete(node *head,int data){
 		temp->next = head->next;
 }
 
+//reversing the linked list
+void reverse(node** head){
+	if((*head) == NULL || (*head)->next == NULL){
+		return;
+	}
+	node* prev = NULL;
+	node* current = (*head);
+	node* next;
+	while(current != NULL){
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	(*head) = prev;
+}
+
 //displaying a list
 void traverse(node* head){
 	if(head == NULL) return;
@@ -87,6 +104,10 @@ int main(){
 	addSorted(&head,fourth);
 	node* fifth = createNode(5);
 	addSorted(&head,fifth);
+	node* seventh = createNode(4);
+	addSorted(&head,seventh);
+	traverse(head);
+	reverse(&head);
 	traverse(head);
 	return 0;
 }
