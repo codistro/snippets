@@ -1,5 +1,3 @@
-#include<stdio.h>
-#include<stdlib.h>
 typedef struct node{
 	int data;
 	struct node* rep;
@@ -64,22 +62,4 @@ void display(node* c){
 		temp = temp->next;
 	}
 	printf("\n");
-}
-
-int main(){
-	node* a = makeSet(3);
-	node* b = makeSet(2);
-	node* c = Union(a,b);
-	display(c);
-	node* d = makeSet(4);
-	node* e = makeSet(5);
-	node* f = makeSet(6);
-	node* g = Union(d,e);
-	display(g);
-	node* h = Union(c,g);
-	display(h);
-
-	if(findSet(a) == findSet(g)) printf("true\n");
-	else printf("flase\n");
-	return 0;
 }
